@@ -1,62 +1,157 @@
-# **Amazon Sales Performance & Exploratory Data Analysis (EDA)**
+# Amazon Sales — Exploratory Data Analysis
 
-### ****Project Overview****
-This project performs an in-depth Exploratory Data Analysis (EDA) on an Amazon sales dataset containing 50,000+ transaction records. The primary objective of this analysis is to uncover actionable business insights regarding revenue generation, customer demographics, product performance, and seasonal sales trends.
+A comprehensive EDA project on 50,000+ Amazon sales records using Python. Uncovers regional revenue trends, seasonal demand patterns, product category performance, and customer satisfaction insights — with actionable business recommendations.
 
-By transforming raw transaction data into visual dashboards, this project highlights key areas where marketing, inventory, and customer retention strategies can be optimized.
+---
 
-### ****Dataset Details****
-The dataset (amazon.csv) consists of 50,000 rows and 13 columns, representing individual customer orders.
+## Problem Statement
 
-### ****Key Features Include**** 
-********order_id & order_date:******** Unique transaction identifiers and timestamps.
+E-commerce businesses generate vast sales data but often lack clear visibility into what's driving revenue, which regions underperform, and when demand peaks. This project answers those questions through structured exploratory analysis and visualization.
 
-********product_category & product_id:******** Item details and classifications.
+---
 
-********price, discount_percent, discounted_price:******** Pricing metrics.
+## Dataset
 
-********quantity_sold & total_revenue:******** Sales volume and gross revenue.
+- **Records:** 50,000+ Amazon sales transactions
+- **Key columns:** `order_date`, `product_category`, `total_revenue`, `customer_region`, `payment_method`, `rating`
 
-********customer_region & payment_method:******** Geographic and transactional preferences.
+---
 
-********rating & review_count********: Customer satisfaction metrics.
+## Project Structure
 
-### ****Key Business Insights****
-Based on the data visualizations generated in this analysis, several key trends were identified:
+```
+amazon-sales-eda/
+│
+├── Amazon_1_.ipynb               # Main analysis notebook
+├── amazon.csv                    # Raw dataset
+├── README.md
+└── images/
+    ├── revenue_by_category.png
+    ├── monthly_sales_trend.png
+    ├── revenue_by_region.png
+    ├── avg_rating_by_category.png
+    └── payment_method_distribution.png
+```
 
-****1. Payment Preferences****
-   
-****Insight:**** [Top Payment Method] is the most trusted and utilized payment option among customers, handling [X%] of all order volume.
+---
 
-****Actionable Recommendation:**** Ensure checkout pipelines for [Top Payment Method] remain highly optimized. Consider strategic partnerships or cashback incentives to promote underutilized platforms.
+## Workflow
 
-****2. Revenue by Product Category****
-   
-****Insight:**** The [Top Category] category is the primary cash cow, driving [$X] in total revenue, significantly outperforming bottom-tier categories like [Lowest Category].
+### 1. Data Loading & Inspection
+- Loaded 50k+ records using `pd.read_csv`
+- Checked null values, data types, shape, and descriptive statistics
+- Assessed column completeness before analysis
 
-****Actionable Recommendation:**** Reallocate marketing spend to capitalize on the high demand for [Top Category], while conducting pricing and visibility audits for lagging categories.
+### 2. Feature Engineering
+- Parsed `order_date` into datetime format using `pd.to_datetime`
+- Created `month_year` period feature using `dt.to_period('M')` for time-series aggregation
+- Enabled month-over-month revenue trend tracking without external libraries
 
-****3. Monthly Sales Trends (Seasonality)****
-   
-****Insight:**** Sales volume is highly seasonal, with sharp revenue spikes in [Peak Month], followed by a noticeable slump during [Lowest Month].
+### 3. Exploratory Data Analysis
 
-****Actionable Recommendation:**** Scale up supply chain and inventory logistics prior to [Peak Month] to prevent stockouts. Implement off-season discount campaigns during [Lowest Month] to stimulate stagnant demand.
+| Analysis | Chart Type | Business Question Answered |
+|---|---|---|
+| Payment method distribution | Bar chart | Which payment options do customers prefer most? |
+| Revenue by product category | Bar chart | Which product lines generate the most revenue? |
+| Monthly sales trend | Line chart | When do sales peak and when do they slump? |
+| Revenue by region | Pie chart | Which geographic markets drive the most revenue? |
+| Avg customer rating by category | Bar chart | Which categories have quality or satisfaction issues? |
 
-****4. Regional Market Share****
-   
-****Insight:**** [Top Region] dominates global sales, accounting for [X%] of total revenue. Regions such as [Lowest Region] hold only a [Y%] share, representing untapped growth potential.
+### 4. Business Insights & Recommendations
 
-****Actionable Recommendation:**** Double down on loyalty programs in [Top Region] to protect market share, and launch localized, aggressive promotional campaigns to penetrate [Lowest Region].
+**Payment Methods**
+- Identified the dominant payment method used across transactions
+- Recommended optimizing checkout pipeline for top payment method to prevent cart abandonment
+- Suggested promotional campaigns (cashback) to shift volume toward lower-fee alternatives
 
-****5. Product Quality & Customer Satisfaction****
-   
-****Insight:**** [Top Rated Category] achieves the highest customer satisfaction with an average rating of [X.X]/5.0. However, [Lowest Rated Category] suffers from a low average rating of [Y.Y]/5.0.
+**Product Categories**
+- Identified top revenue-generating categories vs high-volume but low-revenue categories
+- Recommended reallocating marketing budget toward highest-ROI categories
+- Flagged underperforming categories for pricing and visibility review
 
-****Actionable Recommendation:**** Flag the [Lowest Rated Category] items for immediate quality assurance reviews. High return rates and poor reviews in this segment could negatively impact overall brand trust.
+**Seasonal Trends**
+- Detected clear seasonal revenue spikes and off-peak slumps via monthly time-series
+- Recommended scaling inventory and supply chain logistics ahead of peak months
+- Proposed off-season promotional events to stimulate demand during slow periods
 
-### ****Technologies Used****
-********Data Manipulation:******** pandas, numpy
+**Regional Performance**
+- Mapped revenue distribution across customer regions using pie chart
+- Identified dominant markets and untapped low-penetration regions
+- Recommended localized advertising and shipping incentives for emerging regions
 
-********Data Visualization:******** matplotlib.pyplot, seaborn
+**Customer Satisfaction**
+- Ranked product categories by average rating (out of 5.0)
+- Flagged lowest-rated categories for quality assurance review
+- Recommended bundling high-rated products with average-rated ones to boost overall perception
 
-********Environment:******** Jupyter Notebook
+---
+
+## Key Findings
+
+- Sales exhibit **strong seasonality** with a distinct peak in specific months
+- **One product category** drives a disproportionate share of total revenue
+- **One region** accounts for the majority of sales, indicating concentration risk
+- The **lowest-rated category** has significantly below-average customer satisfaction, signalling a quality gap
+
+---
+
+## Visualizations
+
+Six chart types produced across the analysis:
+
+| Chart | Library |
+|---|---|
+| Bar plots (category revenue, payment methods, ratings) | Seaborn |
+| Line chart (monthly trend) | Matplotlib |
+| Pie chart (regional revenue) | Matplotlib |
+| Donut chart (top 5 loan purposes) | Matplotlib |
+| Count plot (horizontal bar, loan purpose) | Seaborn |
+| Grouped bar plots | Seaborn |
+
+> All Seaborn charts updated to resolve `FutureWarning` deprecations by using the `hue` parameter correctly — production-quality, forward-compatible code.
+
+---
+
+## Tech Stack
+
+| Tool | Purpose |
+|---|---|
+| Python 3 | Core language |
+| Pandas | Data manipulation & aggregation |
+| NumPy | Numerical operations |
+| Matplotlib | Base plotting |
+| Seaborn | Statistical visualizations |
+| Jupyter Notebook | Development environment |
+
+---
+
+## How to Run
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/Devinadh2403/amazon-sales-eda.git
+cd amazon-sales-eda
+
+# 2. Install dependencies
+pip install pandas numpy matplotlib seaborn jupyter
+
+# 3. Launch the notebook
+jupyter notebook Amazon_1_.ipynb
+```
+
+---
+
+## Skills Demonstrated
+
+- Data cleaning and null-value assessment
+- Time-series feature engineering with Pandas datetime methods
+- Multi-dimensional EDA across 5 business dimensions
+- Business-oriented insight generation with actionable recommendations
+- Production-quality, deprecation-free visualization code
+
+---
+
+## Author
+
+**Kokkiligadda Devinadh**  
+[LinkedIn](https://linkedin.com/in/devinadh-kokkiligadda) • [HackerRank](https://www.hackerrank.com/profile/kdevinadh01) • kdevinadh01@gmail.com
