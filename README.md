@@ -154,4 +154,4 @@ jupyter notebook Amazon_1_.ipynb
 ## Author
 
 **Kokkiligadda Devinadh**  
-[LinkedIn](https://linkedin.com/in/devinadh-kokkiligadda) • [HackerRank](https://www.hackerrank.com/profile/kdevinadh01) • kdevinadh01@gmail.com
+[LinkedIn](https://linkedin.com/in/devinadh-kokkiligadda) • kdevinadh01@gmail.com
